@@ -1,7 +1,6 @@
 FROM python:3.7
-WORKDIR /usr/src/app
-COPY requirements.txt ./
+ADD . /code
+WORKDIR /code
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-RUN pip install ./en_core_web_sm-2.0.0.tar.gz
-CMD [ "python", "nlp_app.py" ]
+CMD ["python", "-m", "spacy", "download", "en"]
+CMD [ "python", "nlp_app.py"]
