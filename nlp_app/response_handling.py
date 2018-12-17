@@ -12,6 +12,14 @@ def success_login(tokens):
     return response(success['Authorized'], tokens)
 
 
+def success_list_users(user_list):
+    return jsonify({
+        'code': success['Admin_Authorized'][0],
+        'message': success['Admin_Authorized'][1],
+        'user_list': user_list
+    })
+
+
 def wrong_login_details():
     return response(error['Unauthorized'])
 

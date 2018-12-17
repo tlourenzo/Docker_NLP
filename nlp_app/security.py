@@ -46,3 +46,16 @@ def change_pw(user, old_pw, new_pw):
             return response.wrong_login_details()
     else:
         return response.unknown_user()
+
+def list_users(user, password):
+    if user == 'admin' and bcrypt.checkpw(password.encode('utf8'), users.find({'user': user})[0]['pw']):
+        user_list = []
+        for u in users.find({}):
+            user_data = {
+                'user': u['user'],
+                'tokens': u['tokens']
+            }
+            user_list.append(user_data)
+        return response.success_list_users(user_list)
+    else:
+        return response.wrong_login_details()
