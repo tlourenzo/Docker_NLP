@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request, render_template, make_response
 from flask_restful import Api, Resource
 import os
-from security import register_user, login, change_pw, list_users
+from security import register_user, login, change_pw, list_users, delete_user, internal_login
+from nlp import compare_text, compare_urls
 
 app = Flask(__name__)
 api = Api(app)
@@ -9,7 +10,12 @@ api = Api(app)
 
 class Score_Nlp_Strings(Resource):
     def post(self):
-        pass
+        data = request.get_json(force=True)
+        if internal_login(data['user'], data['password']):
+            print('Login success and ready to check words!!!!')
+            return compare_text(data['original_text'], data['new_text'])
+        else:
+            return login(data['user'], data['password'])
 
 
 class Score_Nlp_Text_Urls(Resource):
@@ -39,6 +45,11 @@ class All_Users(Resource):
         data = request.get_json(force=True)
         return list_users(data['user'], data['password'])
 
+class Delete_User(Resource):
+    def post(self):
+        data = request.get_json(force=True)
+        return delete_user(data['user'], data['password'], data['user_to_delete'])
+
 
 class Welcome(Resource):
     def get(self):
@@ -54,6 +65,7 @@ api.add_resource(Update_Pw, '/update_pw')
 api.add_resource(Score_Nlp_Strings, '/score_strings')
 api.add_resource(Score_Nlp_Text_Urls, '/score_urls')
 api.add_resource(All_Users, '/list_users')
+api.add_resource(Delete_User, '/delete')
 
 if __name__ == '__main__':
     try:

@@ -36,6 +36,23 @@ def existing_user():
     return response(error['Existing_User'])
 
 
+def user_deleted(user_to_delete):
+    return response(success['User_Deleted'], user_to_delete)
+
+
+def internal_error(message):
+    return response(error['Internal_Error'], message)
+
+
+def string_compare_ratio_result(original, new, ratio):
+    return jsonify({
+        'code': 202,
+        'message': 'Login accepted and successfully compared text.',
+        'original': original,
+        'new text': new,
+        'ration': ratio
+    })
+
 def response(code, special=''):
     print('Preparing response with {}!'.format(str(code[0])))
     return jsonify({
