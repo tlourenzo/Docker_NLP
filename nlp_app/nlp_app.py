@@ -20,7 +20,12 @@ class Score_Nlp_Strings(Resource):
 
 class Score_Nlp_Text_Urls(Resource):
     def post(self):
-        pass
+        data = request.get_json(force=True)
+        if internal_login(data['user'], data['password']):
+            print('Login success and ready to check both urls!!!!')
+            return compare_urls(data['url_1'], data['url_2'])
+        else:
+            return login(data['user'], data['password'])
 
 
 class Login(Resource):

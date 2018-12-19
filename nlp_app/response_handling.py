@@ -53,6 +53,11 @@ def string_compare_ratio_result(original, new, ratio):
         'ration': ratio
     })
 
+
+def urls_not_valid(message):
+    response(error['Urls'], message)
+
+
 def response(code, special=''):
     print('Preparing response with {}!'.format(str(code[0])))
     return jsonify({

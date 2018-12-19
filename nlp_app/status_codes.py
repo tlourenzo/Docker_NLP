@@ -6,7 +6,8 @@ error = {
   'Unsupported_Media_Type': [415, ''],
   'Unknown_User': [406, 'Please register before login!'],
   'Existing_User': [405, 'User already registered!'],
-  'Internal_Error': [400, 'Internal Error! ']
+  'Internal_Error': [400, 'Internal Error! '],
+  'Urls': [410, 'Urls not Valid! ']
 }
 
 
