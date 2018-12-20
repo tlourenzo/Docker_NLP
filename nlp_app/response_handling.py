@@ -54,8 +54,8 @@ def string_compare_ratio_result(original, new, ratio):
     })
 
 
-def urls_not_valid(message):
-    response(error['Urls'], message)
+def urls_not_valid():
+    return response(error['Urls'])
 
 
 def response(code, special=''):

@@ -17,15 +17,12 @@ def compare_urls(url1, url2):
     try:
         r1 = requests.get(url1)
         r2 = requests.get(url2)
+        if r1.status_code == 200 and r2.status_code == 200:
+            ratio = nlp(r1.text).similarity(nlp(r2.text))
+            return string_compare_ratio_result(url1, url2, ratio)
+        else:
+            return urls_not_valid()
+
     except Exception as e:
         print(e)
-        return urls_not_valid(
-            'url1 status code {}, url2 status code {}'.format(str(r1.status_code), str(r2.status_code)))
-
-    if r1.status_code == 200 and r2.status_code == 200:
-        text1 = nlp(r1.text)
-        text2 = nlp(r2.text)
-        ratio = text1.similarity(text2)
-        return string_compare_ratio_result(url1, url2, ratio)
-    else:
-        return urls_not_valid('url1 status code {}, url2 status code {}'.format(str(r1.status_code), str(r2.status_code)))
+        return urls_not_valid()
