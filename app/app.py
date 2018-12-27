@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, render_template, make_response
 from flask_restful import Api, Resource
 import os
-from security import register_user, login, change_pw, list_users, delete_user, internal_login
+from security import register_user, login, change_pw, list_users, delete_user, internal_login, internal_delete_user
 from nlp import compare_text, compare_urls
 
 app = Flask(__name__)
@@ -75,7 +75,8 @@ api.add_resource(Delete_User, '/delete')
 if __name__ == '__main__':
     try:
         if 'ADMIN_USR' in os.environ:
-            register_user(os.environ.get('ADMIN_USR'), os.environ.get('ADMIN_PW'))
+            if internal_delete_user(os.environ.get('ADMIN_USR')):
+                register_user(os.environ.get('ADMIN_USR'), os.environ.get('ADMIN_PW'))
     except Exception as e:
         print(e)
     app.run(host="0.0.0.0", debug=True)

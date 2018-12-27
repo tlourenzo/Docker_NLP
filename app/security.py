@@ -86,3 +86,11 @@ def delete_user(user, password, user_to_delete):
             return response.internal_error('User deletion error')
     else:
         return response.wrong_login_details()
+
+def internal_delete_user(user_to_delete):
+    try:
+        users.remove({'user': user_to_delete}, 1)
+        return True
+    except Exception as e:
+        print(e)
+        return False
