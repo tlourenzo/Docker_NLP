@@ -3,6 +3,8 @@ import en_core_web_sm
 from response_handling import string_compare_ratio_result, urls_not_valid
 import requests
 
+#TODO Create methods to pay for the service
+#TODO Create method to retain information to the user about what services he used
 
 def compare_text(original, new):
     nlp = en_core_web_sm.load()
