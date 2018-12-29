@@ -11,6 +11,3 @@ To access you need to register a user, using curl or any software like postman i
  ##NLP
  - Score_Nlp_Strings, '/score_strings' : expects a 'user', a 'password', a 'original_text' and 'new_text' in english, returns the ratio of similarity.
  - Score_Nlp_Text_Urls, '/score_urls' : expects a 'user', a 'password', a 'url_1' and 'url_2' from pages in english, returns the ratio of similarity between the text in it.
- 
- ##Tensorflow Classification
- - Classify_Image, 'classify_image' : expects a 'user', a 'password', a 'image_url', returns a possible classification.

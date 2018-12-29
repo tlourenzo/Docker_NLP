@@ -3,6 +3,7 @@ from flask_restful import Api, Resource
 import os
 from security import register_user, login, change_pw, list_users, delete_user, internal_login, internal_delete_user
 from nlp import compare_text, compare_urls
+from response_handling import request_error
 
 app = Flask(__name__)
 api = Api(app)
@@ -10,51 +11,68 @@ api = Api(app)
 
 class Score_Nlp_Strings(Resource):
     def post(self):
-        data = request.get_json(force=True)
-        if internal_login(data['user'], data['password']):
-            print('Login success and ready to check words!!!!')
-            return compare_text(data['original_text'], data['new_text'])
-        else:
-            return login(data['user'], data['password'])
-
+        try:
+            data = request.get_json(force=True)
+            if internal_login(data['user'], data['password']):
+                print('Login success and ready to check words!!!!')
+                return compare_text(data['original_text'], data['new_text'])
+            else:
+                return login(data['user'], data['password'])
+        except Exception:
+            return request_error()
 
 class Score_Nlp_Text_Urls(Resource):
     def post(self):
-        data = request.get_json(force=True)
-        if internal_login(data['user'], data['password']):
-            print('Login success and ready to check both urls!!!!')
-            return compare_urls(data['url_1'], data['url_2'])
-        else:
-            return login(data['user'], data['password'])
-
+        try:
+            data = request.get_json(force=True)
+            if internal_login(data['user'], data['password']):
+                print('Login success and ready to check both urls!!!!')
+                return compare_urls(data['url_1'], data['url_2'])
+            else:
+                return login(data['user'], data['password'])
+        except Exception:
+            return request_error()
 
 class Login(Resource):
     def post(self):
-        data = request.get_json(force=True)
-        return login(data['user'], data['password'])
+        try:
+            data = request.get_json(force=True)
+            return login(data['user'], data['password'])
+        except Exception:
+            return request_error()
 
 
 class Register(Resource):
     def post(self):
-        data = request.get_json(force=True)
-        return register_user(data['user'], data['password'])
-
+        try:
+            data = request.get_json(force=True)
+            return register_user(data['user'], data['password'])
+        except Exception:
+            return request_error()
 
 class Update_Pw(Resource):
     def post(self):
-        data = request.get_json(force=True)
-        return change_pw(data['user'], data['old_password'], data['new_password'])
+        try:
+            data = request.get_json(force=True)
+            return change_pw(data['user'], data['old_password'], data['new_password'])
+        except Exception:
+            return request_error()
 
 class All_Users(Resource):
     def post(self):
-        data = request.get_json(force=True)
-        return list_users(data['user'], data['password'])
+        try:
+            data = request.get_json(force=True)
+            return list_users(data['user'], data['password'])
+        except Exception:
+            return request_error()
 
 class Delete_User(Resource):
     def post(self):
-        data = request.get_json(force=True)
-        return delete_user(data['user'], data['password'], data['user_to_delete'])
-
+        try:
+            data = request.get_json(force=True)
+            return delete_user(data['user'], data['password'], data['user_to_delete'])
+        except Exception:
+            return request_error()
 
 class Welcome(Resource):
     def get(self):

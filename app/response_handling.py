@@ -43,6 +43,9 @@ def user_deleted(user_to_delete):
 def internal_error(message):
     return response(error['Internal_Error'], message)
 
+def request_error():
+    return response(error['Internal_Error'], 'Invalid json request, check format and keys in documentation.')
+
 
 def string_compare_ratio_result(original, new, ratio):
     return jsonify({

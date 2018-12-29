@@ -1,5 +1,6 @@
-FROM python:3.7
-ADD . /nlp_app
-WORKDIR /nlp_app
+FROM python:3.5
+WORKDIR /usr/src/app
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-CMD ["python", "app.py"]
+COPY . .
+CMD [ "python", "app.py" ]
